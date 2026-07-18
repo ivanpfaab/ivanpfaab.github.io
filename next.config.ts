@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   },
   trailingSlash: true,
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  devIndicators: false,
 };
 
 const withMDX = createMDX({});
