@@ -4,6 +4,7 @@ import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
 import { SocialLinks } from "./components/social-links";
 import { ProjectCard } from "./components/project-card";
+import { MapPinIcon } from "./components/icons";
 
 export default function Home() {
   const featuredProjects = projects.filter((project) => project.featured);
@@ -29,6 +30,10 @@ export default function Home() {
             </p>
             <p className="mt-1 text-sm text-black/50 dark:text-white/50">
               {profile.tagline}
+            </p>
+            <p className="mt-2 flex items-center justify-center gap-1.5 text-sm text-black/50 sm:justify-start dark:text-white/50">
+              <MapPinIcon className="size-4" />
+              {profile.location}
             </p>
           </div>
           <p className="max-w-xl text-black/80 dark:text-white/80">
