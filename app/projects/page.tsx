@@ -14,11 +14,21 @@ export default function ProjectsPage() {
       <p className="mt-2 text-black/60 dark:text-white/60">
         A selection of things I&apos;ve built.
       </p>
-      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.name} project={project} />
-        ))}
-      </div>
+      {projects.length > 0 ? (
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.name}
+              project={project}
+              headingLevel="h2"
+            />
+          ))}
+        </div>
+      ) : (
+        <p className="mt-8 text-sm text-black/60 dark:text-white/60">
+          No projects yet — check back soon.
+        </p>
+      )}
     </section>
   );
 }

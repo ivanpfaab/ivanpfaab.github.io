@@ -51,56 +51,65 @@ export default async function WritingPage() {
       <p className="mt-2 text-black/60 dark:text-white/60">
         Posts and articles, on this site and elsewhere.
       </p>
-      <ul className="mt-8 flex flex-col gap-4">
-        {items.map((item) => {
-          const label =
-            item.type === "external" ? item.platform : "On this site";
-          const key = item.type === "external" ? item.url : item.slug;
+      {items.length === 0 ? (
+        <p className="mt-8 text-sm text-black/60 dark:text-white/60">
+          Nothing published yet — check back soon.
+        </p>
+      ) : (
+        <ul className="mt-8 flex flex-col gap-4">
+          {items.map((item) => {
+            const label =
+              item.type === "external" ? item.platform : "On this site";
+            const key = item.type === "external" ? item.url : item.slug;
 
-          const cardBody = (
-            <>
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <span className="text-xs font-medium uppercase tracking-wide text-black/50 dark:text-white/50">
-                    {label} · {formatDate(item.date)}
-                  </span>
-                  <h2 className="mt-1 font-medium">{item.title}</h2>
+            const cardBody = (
+              <>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <span className="text-xs font-medium uppercase tracking-wide text-black/50 dark:text-white/50">
+                      {label} · {formatDate(item.date)}
+                    </span>
+                    <h2 className="mt-1 font-medium">{item.title}</h2>
+                  </div>
+                  {item.type === "external" ? (
+                    <ExternalLinkIcon className="mt-1 size-4 shrink-0 text-black/40 transition-colors group-hover:text-black dark:text-white/40 dark:group-hover:text-white" />
+                  ) : (
+                    <ChevronRightIcon className="mt-1 size-4 shrink-0 text-black/40 transition-colors group-hover:text-black dark:text-white/40 dark:group-hover:text-white" />
+                  )}
                 </div>
+                <p className="text-sm text-black/70 dark:text-white/70">
+                  {item.excerpt}
+                </p>
+              </>
+            );
+
+            const cardClassName =
+              "group flex flex-col gap-2 rounded-xl border border-black/10 p-5 transition-colors hover:border-black/20 dark:border-white/15 dark:hover:border-white/30";
+
+            return (
+              <li key={key}>
                 {item.type === "external" ? (
-                  <ExternalLinkIcon className="mt-1 size-4 shrink-0 text-black/40 transition-colors group-hover:text-black dark:text-white/40 dark:group-hover:text-white" />
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={cardClassName}
+                  >
+                    {cardBody}
+                  </a>
                 ) : (
-                  <ChevronRightIcon className="mt-1 size-4 shrink-0 text-black/40 transition-colors group-hover:text-black dark:text-white/40 dark:group-hover:text-white" />
+                  <Link
+                    href={`/writing/${item.slug}`}
+                    className={cardClassName}
+                  >
+                    {cardBody}
+                  </Link>
                 )}
-              </div>
-              <p className="text-sm text-black/70 dark:text-white/70">
-                {item.excerpt}
-              </p>
-            </>
-          );
-
-          const cardClassName =
-            "group flex flex-col gap-2 rounded-xl border border-black/10 p-5 transition-colors hover:border-black/20 dark:border-white/15 dark:hover:border-white/30";
-
-          return (
-            <li key={key}>
-              {item.type === "external" ? (
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={cardClassName}
-                >
-                  {cardBody}
-                </a>
-              ) : (
-                <Link href={`/writing/${item.slug}`} className={cardClassName}>
-                  {cardBody}
-                </Link>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </section>
   );
 }

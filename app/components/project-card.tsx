@@ -1,11 +1,17 @@
 import type { Project } from "@/content/projects";
 import { ExternalLinkIcon, GithubIcon } from "./icons";
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({
+  project,
+  headingLevel: Heading = "h3",
+}: {
+  project: Project;
+  headingLevel?: "h2" | "h3";
+}) {
   return (
     <article className="flex flex-col gap-3 rounded-xl border border-black/10 p-5 dark:border-white/15">
       <div className="flex items-start justify-between gap-4">
-        <h3 className="font-medium">{project.name}</h3>
+        <Heading className="font-medium">{project.name}</Heading>
         <div className="flex shrink-0 items-center gap-3 text-black/60 dark:text-white/60">
           <a
             href={project.repoUrl}

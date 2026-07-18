@@ -20,8 +20,8 @@ export function Nav() {
         <Link href="/" className="text-sm font-semibold tracking-tight">
           Ivan Pfaab
         </Link>
-        <nav className="flex items-center gap-5">
-          <ul className="flex items-center gap-5 text-sm">
+        <nav className="flex flex-wrap items-center gap-x-5 gap-y-3">
+          <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm sm:gap-x-5">
             {links.map(({ href, label }) => {
               const isActive =
                 href === "/" ? pathname === "/" : pathname.startsWith(href);
