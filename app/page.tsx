@@ -36,9 +36,13 @@ export default function Home() {
               {profile.location}
             </p>
           </div>
-          <p className="max-w-xl text-black/80 dark:text-white/80">
-            {profile.bio}
-          </p>
+          <div className="flex max-w-xl flex-col gap-4 text-left text-black/80 dark:text-white/80">
+            {profile.bio.map((paragraph) => (
+              <p key={paragraph} className="text-justify">
+                {paragraph}
+              </p>
+            ))}
+          </div>
           <div className="flex items-center gap-4">
             <SocialLinks iconClassName="size-5" />
           </div>

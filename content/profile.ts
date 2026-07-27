@@ -3,7 +3,7 @@ export type Profile = {
   title: string;
   company: string;
   tagline: string;
-  bio: string;
+  bio: string[];
   photo: string;
   location: string;
   social: {
@@ -18,7 +18,10 @@ export const profile: Profile = {
   title: "Sr. Technical Solutions Engineer",
   company: ".Monks",
   tagline: "Data Engineer · Cloud Engineer · Analytics",
-  bio: "I create tailored data engineering solutions that drive business success. With 6 years of experience as a Technical Solution Engineer, I focus on bespoke architectures that prioritize your unique organizational needs. Instead of relying on generic implementations, I specialize in custom integrations that guarantee conversion optimization and measurable ROI. My approach aligns technical strategies with business objectives, treating your goals with the same commitment I apply to my work. I believe infrastructure is a key driver of commercial success rather than just a support function. If you're looking for a data engineer who prioritizes personalization and business impact, I would love to connect and discuss how I can help elevate your projects.",
+  bio: [
+    "Over the past 6 years, I've worked across data engineering, cloud architecture, and data analytics, currently as a Technical Solutions Engineer at .Monks. Along the way, I've come to see infrastructure less as a support function and more as something that shapes what a business can actually do: pipelines, platforms, and data models underneath a product are rarely just plumbing, they're often the reason it can (or can't) scale.",
+    "This site is where I write about what that experience has taught me, from starting the data collection process, bulding warehouse solutions, to broader questions about where the industry is headed. More of that in the Writing section below.",
+  ],
   photo: "/images/profile-picture.jpeg",
   location: "Buenos Aires, Argentina",
   social: {

@@ -18,6 +18,7 @@ const geistMono = Geist_Mono({
 
 const siteUrl = "https://ivanpfaab.github.io";
 const titleDefault = `${profile.name} — ${profile.title}`;
+const descriptionDefault = profile.bio[0];
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -25,10 +26,10 @@ export const metadata: Metadata = {
     default: titleDefault,
     template: `%s | ${profile.name}`,
   },
-  description: profile.bio,
+  description: descriptionDefault,
   openGraph: {
     title: titleDefault,
-    description: profile.bio,
+    description: descriptionDefault,
     url: siteUrl,
     siteName: profile.name,
     type: "website",
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title: titleDefault,
-    description: profile.bio,
+    description: descriptionDefault,
   },
 };
 

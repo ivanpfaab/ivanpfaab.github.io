@@ -24,6 +24,8 @@ type WritingItem =
       excerpt: string;
       platform: string;
       url: string;
+      embedUrl?: string;
+      embedHeight?: number;
     }
   | {
       type: "internal";
@@ -32,6 +34,10 @@ type WritingItem =
       excerpt: string;
       slug: string;
     };
+
+const cardClassName =
+  "rounded-xl border border-black/10 p-5 dark:border-white/15";
+const linkCardClassName = `group flex flex-col gap-2 transition-colors hover:border-black/20 dark:hover:border-white/30 ${cardClassName}`;
 
 export default async function WritingPage() {
   const mdxPosts = await getMdxPosts();
@@ -62,6 +68,36 @@ export default async function WritingPage() {
               item.type === "external" ? item.platform : "On this site";
             const key = item.type === "external" ? item.url : item.slug;
 
+            if (item.type === "external" && item.embedUrl) {
+              return (
+                <li key={key} className={cardClassName}>
+                  <span className="text-xs font-medium uppercase tracking-wide text-black/50 dark:text-white/50">
+                    {label} · {formatDate(item.date)}
+                  </span>
+                  <h2 className="mt-1 font-medium">{item.title}</h2>
+                  <div className="mt-4 overflow-hidden rounded-lg">
+                    <iframe
+                      src={item.embedUrl}
+                      title={`${item.title} — ${item.platform} post`}
+                      height={item.embedHeight ?? 800}
+                      className="w-full border-0"
+                      allowFullScreen
+                      loading="lazy"
+                    />
+                  </div>
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white"
+                  >
+                    View original
+                    <ExternalLinkIcon className="size-4" />
+                  </a>
+                </li>
+              );
+            }
+
             const cardBody = (
               <>
                 <div className="flex items-start justify-between gap-4">
@@ -83,9 +119,6 @@ export default async function WritingPage() {
               </>
             );
 
-            const cardClassName =
-              "group flex flex-col gap-2 rounded-xl border border-black/10 p-5 transition-colors hover:border-black/20 dark:border-white/15 dark:hover:border-white/30";
-
             return (
               <li key={key}>
                 {item.type === "external" ? (
@@ -93,14 +126,14 @@ export default async function WritingPage() {
                     href={item.url}
                     target="_blank"
                     rel="noreferrer"
-                    className={cardClassName}
+                    className={linkCardClassName}
                   >
                     {cardBody}
                   </a>
                 ) : (
                   <Link
                     href={`/writing/${item.slug}`}
-                    className={cardClassName}
+                    className={linkCardClassName}
                   >
                     {cardBody}
                   </Link>

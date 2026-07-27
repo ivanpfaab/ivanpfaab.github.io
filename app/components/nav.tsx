@@ -4,11 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./theme-toggle";
 
+// Resources is hidden for now — see content/resources.ts for the underlying
+// data, still intact and ready to bring back later.
 const links = [
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
   { href: "/writing", label: "Writing" },
-  { href: "/resources", label: "Resources" },
 ];
 
 export function Nav() {

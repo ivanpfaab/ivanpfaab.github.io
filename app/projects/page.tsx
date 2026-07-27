@@ -26,7 +26,7 @@ export default function ProjectsPage() {
         </div>
       ) : (
         <p className="mt-8 text-sm text-black/60 dark:text-white/60">
-          No projects yet — check back soon.
+          Coming soon...
         </p>
       )}
     </section>

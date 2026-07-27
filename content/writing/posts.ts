@@ -1,5 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
+import { evaluate } from "@mdx-js/mdx";
+import * as runtime from "react/jsx-runtime";
 
 const contentDir = path.join(process.cwd(), "content/writing");
 
@@ -13,6 +15,7 @@ export type MdxPostMetadata = {
 type RawMetadata = { title: string; date: string; excerpt: string };
 
 export function getMdxSlugs(): string[] {
+  if (!fs.existsSync(contentDir)) return [];
   return fs
     .readdirSync(contentDir)
     .filter((file) => file.endsWith(".mdx"))
@@ -20,11 +23,17 @@ export function getMdxSlugs(): string[] {
 }
 
 export async function getMdxPost(slug: string) {
-  const mod = (await import(`./${slug}.mdx`)) as {
+  const source = fs.readFileSync(
+    path.join(contentDir, `${slug}.mdx`),
+    "utf8"
+  );
+  const { default: Content, metadata } = (await evaluate(source, {
+    ...runtime,
+  })) as unknown as {
     default: React.ComponentType;
     metadata: RawMetadata;
   };
-  return mod;
+  return { default: Content, metadata };
 }
 
 export async function getMdxPosts(): Promise<MdxPostMetadata[]> {
