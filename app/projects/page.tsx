@@ -1,5 +1,5 @@
 import { projects } from "@/content/projects";
-import { ProjectCard } from "../components/project-card";
+import { ProjectsList } from "../components/projects-list";
 
 export const metadata = {
   title: "Projects",
@@ -14,21 +14,7 @@ export default function ProjectsPage() {
       <p className="mt-2 text-black/60 dark:text-white/60">
         A selection of things I&apos;ve built.
       </p>
-      {projects.length > 0 ? (
-        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.name}
-              project={project}
-              headingLevel="h2"
-            />
-          ))}
-        </div>
-      ) : (
-        <p className="mt-8 text-sm text-black/60 dark:text-white/60">
-          Coming soon...
-        </p>
-      )}
+      <ProjectsList projects={projects} />
     </section>
   );
 }

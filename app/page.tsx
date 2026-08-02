@@ -7,7 +7,9 @@ import { ProjectCard } from "./components/project-card";
 import { MapPinIcon } from "./components/icons";
 
 export default function Home() {
-  const featuredProjects = projects.filter((project) => project.featured);
+  const featuredProjects = projects
+    .filter((project) => project.featured)
+    .slice(0, 2);
 
   return (
     <>
