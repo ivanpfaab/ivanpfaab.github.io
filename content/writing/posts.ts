@@ -10,9 +10,17 @@ export type MdxPostMetadata = {
   title: string;
   date: string;
   excerpt: string;
+  tags: string[];
+  keywords?: string[];
 };
 
-type RawMetadata = { title: string; date: string; excerpt: string };
+type RawMetadata = {
+  title: string;
+  date: string;
+  excerpt: string;
+  tags?: string[];
+  keywords?: string[];
+};
 
 export function getMdxSlugs(): string[] {
   if (!fs.existsSync(contentDir)) return [];
@@ -41,7 +49,14 @@ export async function getMdxPosts(): Promise<MdxPostMetadata[]> {
   const posts = await Promise.all(
     slugs.map(async (slug) => {
       const { metadata } = await getMdxPost(slug);
-      return { slug, ...metadata };
+      return {
+        slug,
+        title: metadata.title,
+        date: metadata.date,
+        excerpt: metadata.excerpt,
+        tags: metadata.tags ?? [],
+        keywords: metadata.keywords,
+      };
     })
   );
   return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
