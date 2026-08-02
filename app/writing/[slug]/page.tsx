@@ -3,7 +3,13 @@ import { notFound } from "next/navigation";
 import { getMdxPost, getMdxSlugs } from "@/content/writing/posts";
 
 export function generateStaticParams() {
-  return getMdxSlugs().map((slug) => ({ slug }));
+  const slugs = getMdxSlugs();
+  // Static export rejects an empty params list (misleading "missing
+  // generateStaticParams" error). Keep a placeholder until MDX posts exist.
+  if (slugs.length === 0) {
+    return [{ slug: "__placeholder__" }];
+  }
+  return slugs.map((slug) => ({ slug }));
 }
 
 export const dynamicParams = false;
