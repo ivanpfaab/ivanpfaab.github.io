@@ -45,4 +45,12 @@ export const projects: Project[] = [
     image: "/images/projects/GCPTerraformServices.png",
     tags: ["Infrastructure", "GCP"],
   },
+  {
+    name: "streaming-pipeline-example",
+    description:
+      "Local streaming pipeline with Kafka and Flink or Spark, plus Terraform deploys to EKS, AKS, or GKE.",
+    repoUrl: "https://github.com/ivanpfaab/streaming-pipeline-example",
+    image: "/images/projects/StreamingPipeline.jpeg",
+    tags: ["Data Engineering", "Infrastructure"],
+  },
 ];
